@@ -131,7 +131,7 @@ const UpdateProduct = () => {
                 <option
                   key={index}
                   value={cat._id}
-                  selected={cat._id == product.category}
+                  selected={cat._id === product.category}
                 >
                   {cat.name}
                 </option>

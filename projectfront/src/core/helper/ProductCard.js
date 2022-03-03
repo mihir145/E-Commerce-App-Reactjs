@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { API } from "../../backend";
-import { addItemToCart } from "../../core/helper/cartHelper";
+import { addItemToCart, removeItemFromCart } from "./cartHelper";
 
 // const ProductCard = ({ item }) => {
 //   return (
@@ -32,9 +32,41 @@ import { addItemToCart } from "../../core/helper/cartHelper";
 //   );
 // };
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item, addtoCart = true, removeFromCart = false }) => {
   const [redirect, setRedirect] = useState(false);
-  const [count, setCount] = useState(item.count);
+  // const [count, setCount] = useState(item.count);
+
+  const showAddToCart = (addtoCart) => {
+    return (
+      addtoCart && (
+        <div className="product-links">
+          <button
+            className="btn btn-block btn-outline-success mt-2 mb-2"
+            onClick={addToCart}
+          >
+            Add To Cart
+          </button>
+        </div>
+      )
+    );
+  };
+
+  const showRemoveFromCart = (removeFromCart) => {
+    return (
+      removeFromCart && (
+        <div className="product-links">
+          <button
+            className="btn btn-block btn-outline-danger mt-2 mb-2"
+            onClick={() => {
+              removeItemFromCart(item._id);
+            }}
+          >
+            Remove From Cart
+          </button>
+        </div>
+      )
+    );
+  };
 
   const addToCart = () => {
     addItemToCart(item, () => setRedirect(true));
@@ -47,24 +79,24 @@ const ProductCard = ({ item }) => {
   };
 
   return (
-    <div class="product-card" style={{ marginBottom: "20px" }}>
+    <div className="product-card" style={{ marginBottom: "20px" }}>
       {/* <div class="badge">Hot</div> */}
       <div
-        class="product-tumb"
+        className="product-tumb"
         style={{
-          //   backgroundImage: "src('" + `${API}/product/photo/${item._id}` + "')",
-          backgroundImage: "url(" + `${API}/product/photo/${item._id}` + ")",
+          backgroundImage: `url(${API}/product/photo/${item._id})`,
         }}
       ></div>
-      <div class="product-details">
+      <div className="product-details">
         <h4>{item.name}</h4>
         <p>{item.description}</p>
-        <div class="product-bottom-details">
-          <div class="product-price text-success">{item.price}$</div>
-          <div class="product-links">
-            <i class="fa fa-shopping-cart" onClick={addToCart}></i>
-          </div>
+        <div className="product-bottom-details">
+          <div className="product-price text-success">{item.price}$</div>
         </div>
+      </div>
+      <div className="col-12">
+        {showAddToCart(addtoCart)}
+        {showRemoveFromCart(removeFromCart)}
       </div>
     </div>
   );
