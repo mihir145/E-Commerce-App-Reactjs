@@ -17,3 +17,5 @@
 
 ## Screenshots
 
+- Admin Dashboard
+	<img src="./AdminDashboard.png" width="500" height="500" />
