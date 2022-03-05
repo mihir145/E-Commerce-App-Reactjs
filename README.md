@@ -18,4 +18,5 @@
 ## Screenshots
 
 - Admin Dashboard
-	<img src="./Screenshots/AdminDashboard.png" width="100%" height="500" />
+	<img src="./Screenshots/AdminDashboard.png" />
+	<img src="./Screenshots/CreateCategory.png" />
